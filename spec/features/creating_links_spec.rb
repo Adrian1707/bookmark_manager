@@ -1,4 +1,7 @@
+require 'spec_helper'
+
 feature 'Creating links' do
+
   scenario 'I can create new links' do
     visit 'links/new'
     fill_in 'url', with: 'http://zombo.com/'
@@ -9,4 +12,11 @@ feature 'Creating links' do
       expect(page).to have_content("This is Zombocom")
   end
 end
+
+  scenario 'there are no links in the database at the start of the test' do
+    expect(Link.count).to eq 0
+  end
+
+
+
 end
