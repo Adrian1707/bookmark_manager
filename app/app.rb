@@ -1,7 +1,8 @@
 require 'sinatra/base'
-require_relative 'data_mapper_setup'
+require_relative './data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
+  set :views, proc {File.join(root,'..','/app/views')}
 
   # get '/' do
   #   'Hello BookmarkManager!'
@@ -17,9 +18,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/links' do
-    link = Link.first_or_create(title: params[:title], url: params[:url])
-    tag = Tag.first_or_create(name: params[:tag])
+    link = Link.new(title: params[:title], url: params[:url])
+    # tag = Tag.first_or_create(name: params[:tag])
+    string_array = params[:tag].split(/\s+/)
+    string_array.each do |word|
+    tag = Tag.create(name: word)
     link.tags << tag
+    end
     link.save
     redirect '/links'
   end
