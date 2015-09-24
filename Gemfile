@@ -1,12 +1,13 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
-gem 'rspec'
+gem 'bcrypt'
 gem 'capybara'
+gem 'database_cleaner'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
+gem 'rspec'
 gem 'sinatra'
-gem 'database_cleaner'
-gem 'bcrypt'
+gem 'sinatra-flash'
 
 # gem "rails"
