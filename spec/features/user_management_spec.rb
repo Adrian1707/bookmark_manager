@@ -2,7 +2,7 @@
 feature 'User sign up' do
 
   scenario 'I can sign up as a new user' do
-    user = User.create(email: 'email', password: 'password', password_confirmation: 'password')
+    user = User.new(email: 'email', password: 'password', password_confirmation: 'password')
     expect { sign_up(user) }.to change(User, :count).by(1)
     expect(page).to have_content('Welcome, email')
     expect(User.first.email).to eq('email')
@@ -27,10 +27,10 @@ feature 'User sign up' do
   end
 
   scenario 'with a password that does not match' do
-      user = User.create(email: 'email', password: 'password', password_confirmation: 'qwdqdq')
+    user = User.create(email: 'email', password: 'password', password_confirmation: 'qwdqdq')
     expect { sign_up(user) }.not_to change(User, :count)
     expect(current_path).to eq('/users')
-    expect(page).to have_content 'Password and confirmation password do not match'
+    expect(page).to have_content 'Password does not match the confirmation'
   end
 
   def sign_up(user)
