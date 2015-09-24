@@ -17,6 +17,12 @@ feature 'User sign up' do
     expect(page).to have_content("Please enter a valid email address")
   end
 
+  scenario 'I cannot sign up with an existing email' do
+    sign_up_as(user)
+    expect { sign_up_as(user) }.not_to change(User, :count)
+    expect(page).to have_content('Email is already taken')
+  end
+
   scenario 'with a password that does not match' do
     expect { sign_up(password_confirmation: 'wrong password') }.not_to change(User, :count)
     expect(current_path).to eq('/users')

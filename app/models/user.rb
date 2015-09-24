@@ -10,7 +10,7 @@ class User
   validates_confirmation_of :password
 
   property :id, Serial
-  property :email, String
+  property :email, String, required: true #because we're requiring email, the validates_presence_of :email above is unneccesary
   property :password_digest, Text
 
   def password=(password)
