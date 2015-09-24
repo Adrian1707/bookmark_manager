@@ -20,8 +20,6 @@ feature 'User sign in' do
 
 end
 
-
-
 feature 'User sign up' do
 
   scenario 'I can sign up as a new user' do
