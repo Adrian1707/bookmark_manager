@@ -11,13 +11,6 @@ feature 'User sign in' do
     expect(page).to have_content "Welcome, user@example.com"
   end
 
-  def sign_in(user)
-    visit '/sessions/new'
-    fill_in 'email', :with => user.email
-    fill_in 'password', :with => user.password
-    click_button 'Sign in'
-  end
-
 end
 
 feature 'User signs out' do
@@ -28,13 +21,19 @@ feature 'User signs out' do
                 password_confirmation: 'test')
   end
 
+  let (:user) do
+    User.create(email: 'user@example.com',
+                password: 'secret1234',
+                password_confirmation: 'secret1234')
+  end
+
   scenario 'while being signed in' do
-    sign_in(email: 'test@test.com', password: 'test')
+    sign_in(user)
     click_button 'Sign out'
     expect(page).to have_content('goodbye!')
     expect(page).not_to have_content("Welcome, test@test.com")
   end
-  
+
 end
 
 feature 'User sign up' do
@@ -70,14 +69,5 @@ feature 'User sign up' do
     expect(current_path).to eq('/users')
     expect(page).to have_content 'Password does not match the confirmation'
   end
-
-  def sign_up(user)
-    visit '/users/new'
-    fill_in :email,    with: user.email
-    fill_in :password, with: user.password
-    fill_in :password_confirmation, with: user.password_confirmation
-    click_button 'Sign up'
-  end
-
 
 end

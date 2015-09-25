@@ -14,3 +14,6 @@ DataMapper.finalize
 
 # However, the database tables don't exist yet. Let's tell datamapper to create them
 DataMapper.auto_upgrade!
+#If we call auto_migrate, it will create a brand new database, even if we're making a small change it will clear all of the data from the database and reinitialize the database
+#in it's initial state.
+#Auto-upgrade will try and make any changes to our model.
